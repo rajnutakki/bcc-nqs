@@ -1,0 +1,14 @@
+#Run expectation value calculation with uv run vmc/expectation_value/run.py --config PATH_TO_CONFIG.YAML --other_parameters
+directory: "."
+n_samples_per_chain: 10
+n_chains: 100
+chunk_size: 1000
+n_discard_per_chain: 10
+#Options: energy, sx, sy, szsz_t, spsm_t, szsz, spsm, sign
+observables: ["energy", "sx", "sy", "szsz_t", "spsm_t", "sign"]
+save_type: "opt" #opt/post: opt for no post iterations, post if used post iterations
+final_stage: 1 #symmetry stage to compute expectation values from, if greater than current symmetry stage, projects the wavefunction
+symmetry_stage: 0 #0 to load in from opt.json and vstate, otherwise loads in from vstate{i}
+save_file_name: "expectation_values"
+#little_group_id: 0 #little group id to project to, if not specified takes it from file
+#spin_flip_symmetric: 1 #spin_flip_symmetry id to project to, if not specified takes it from file

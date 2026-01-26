@@ -1,0 +1,43 @@
+[project]
+name = "bcc-nqs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "configargparse>=1.7.1",
+    "netket==3.19.0",
+    "nqxpack>=0.1.7",
+    "pytest>=9.0.2",
+    "quspin>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.8.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["src/**"]
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=src --cov-report=term-missing"
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*__init__.py*",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.14.14",
+]

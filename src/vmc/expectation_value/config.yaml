@@ -1,0 +1,14 @@
+#Run expectation values with python deepnets/expectation_value/run.py --config PATH_TO_CONFIG.YAML --other_parameters
+n_samples_per_chain: 128
+n_chains: 128
+chunk_size: 256
+n_discard_per_chain: 128
+#Options: energy, mz, mx, mp, mm, szsz_t, spsm_t, szsz, spsm
+observables: ["energy", "sx", "sy", "szsz_t", "spsm_t", "sign"]
+#observables: ["energy"]
+save_type: "opt" #opt/post: opt for no post iterations, post if used post iterations
+final_stage: 3
+symmetry_stage: 3 #0 to load in from opt.json and vstate, otherwise loads in from vstate{i}
+#save_file_name: "exp_stage2_0"
+#little_group_id: 0 #little group id to project to, if not specified takes it from file
+#spin_flip_symmetric: 1 #spin_flip_symmetry id to project to, if not specified takes it from file

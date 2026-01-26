@@ -1,0 +1,53 @@
+#Example config file for running a ground state optimization
+#Run optimization with uv run vmc/optimization/run.py --config PATH_TO_CONFIG.YAML --other_parameters
+#Check vmc/optimization/run.py, vmc/optimization/protocols.py nets/wrappers.py for more details on parameters and any defaults
+
+############ System parameters
+#BCCHeisenberg
+lattice_shape: [4,2,2]
+J: [1, 0.2]
+sign_rule: 0 # 1 for J1 sign rule, 2 for J2 sign rule
+tetragonal_distortion: 1 #lattice constant in z direction, 1 is undistorted
+little_group_id: 0  #Do not specify to use default invariant irrep, symmetry stage 1
+spin_flip_symmetric: 0 #0 = false (spin-flip antisymmetric), 1 = true (spin-flip symmetric), symmetry stage 2
+
+########### Network parameters
+#ViT args
+depth: 1
+d_model: 12
+heads: 6
+expansion_factor: 2
+output_head: "FT"
+q: [0,0,0] #momentum sector of wavefunction, in units of pi
+kernel_shape: [2,2,2] #receptive field of factored attention
+patch_shape: [1,1,1] #number of unit cells in each dimension which make up a patch
+sign_net: 0 #Whether to use \Psi(\sigma) = NN(\sigma) * S(\sigma), where S is a Marshall sign rule, 0 = false, 1 = true
+
+########### Optimization Parameters
+samples_per_rank: 100
+n_chains_per_rank: 100
+discard_fraction: 0
+sweep_factor: 2
+#The following are specified for each of the possible 3 symmetry stages (momentum, space group, space group*spin-parity)
+iters: [10,10,10]
+lr: [7.5e-3,7.5e-3,7.5e-3]
+lr_factor: [0.5,0.5,0.5] #cosine decay of learning rate from lr to lr*lr_factor over iters iterations
+diag_shift: [1e-2,1e-2,1e-2]
+diag_shift_factor: [1e-4,1e-4,1e-4]
+chunk_size: [100, 100, 100]
+r: 1e-6
+solver: "pinv_smooth"
+save_every: 10
+n_symmetry_stages: 1
+#momentum: 0.9
+#norm_constraint_factor: 0.001 #if not defined, no norm clipping is applied 
+#proj_reg: 1 # if not defined, projection regularization is not applied
+post_iters: 0
+#load_base: "/Users/rajah.nutakki/repos/netket_pro_dev/examples/spin_vmc/optimization/vstate2/"
+#load_stage: 2
+
+########## Other parameters
+save_base: ''
+save_num: 0
+time_it: 0
+show_progress: 1

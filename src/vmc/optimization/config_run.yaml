@@ -1,0 +1,87 @@
+#Run optimization with python deepnets/optimization/run.py --config PATH_TO_CONFIG.YAML --other_parameters
+
+############ System parameters
+system: "BCCHeisenberg"  #SquareHeisenberg / ShastrySutherland/ SquareGeneralXXZ / HyperkagomeHeisenberg / BCCHeisenberg
+# L: 6
+# J: [0.8, 1]
+# sign_rule: [0,0] #Square_Heisenberg
+# patching: 1 #Square_Heisenberg
+#SquareGeneralXXZ args
+# L: 4
+# Jp: -1 
+# hz: 0.1
+# U: 0.2
+# hx: 0.1
+# patching: 1
+#HyperkagomeHeisenberg
+# lattice_shape: [1,1,1]
+# J: 1
+#BCC
+lattice_shape: [4,4,4]
+J : [1, -4.9, 1.0375]
+#J : [1, 0.71]
+simple_cubic: 1
+little_group_id: 0
+spin_flip_symmetric: 1
+tetragonal_distortion: 0.985
+
+########### Network parameters
+network: "ViTNd" #ResCNN/ViTNd/ConvNext
+#ConvNext args
+# n_blocks: 2
+# features: 12
+# expansion_factor: 2
+# net_type: "Vanilla" #Vanilla/NoPatching
+# kernel_width: 2
+# final_features: 12 
+# init_kernel_width: 1 #dummy for net_type = Vanilla
+#ViT args
+depth: 8
+d_model: 64
+heads: 8
+expansion_factor: 2
+output_head: "FT"
+kernel_shape: [4,4,4]
+patch_shape: [1,1,1]
+q: [0,0,0]
+
+########### Optimization Parameters
+protocol: "MC" # MC / FullSum
+#MC only
+samples_per_rank: 512
+n_chains_per_rank: 512
+discard_fraction: 0
+sweep_factor: 2
+#MC and Full Sum
+# iters: [100]
+# lr: [7.5e-3]
+# lr_factor: [0.5]
+# diag_shift: [1e-2]
+# diag_shift_factor: [1e-1]
+iters: [5000, 600, 300]
+#iters: [3500, 300, 200]
+#iters: [10,10,10]
+lr: [7.5e-3, 7.5e-3, 7.5e-3]
+lr_factor: [0.5, 0.5, 0.5]
+diag_shift: [1e-2, 1e-3, 1e-3]
+diag_shift_factor: [1e-2, 1e-1, 1e-1]
+chunk_size: [512, 256, 256]
+#chunk_size: [2048, 2048, 2048]
+solver: "pinv_smooth"
+r: [1e-6, 1e-6, 1e-6]
+rfactor: [1, 1, 1]
+save_every: 100
+n_symmetry_stages: 1
+momentum: 0
+checkpoint: 1
+post_iters: 0
+#load_stage: 1
+load_base: "" #no loading of vstate if empty
+#load_stage_diff: 0
+
+########## Other parameters
+save_base: ''
+save_num: 0
+time_it: 0
+show_progress: 1
+double_precision: 1

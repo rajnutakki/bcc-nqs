@@ -1,0 +1,9 @@
+*.mpack
+*.log
+*.out
+*.json
+*.npy
+*.py[cod]
+**/__pycache__/
+*cpython*.pyc
+*coverage*
