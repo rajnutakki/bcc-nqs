@@ -184,7 +184,11 @@ def from_dict(arg_dict: dict, system, network_name="ConvNext"):
         network = networks[network_name]
         arg_dict["net_type"] = arg_dict["output_head"]
         del arg_dict["output_head"]
-    return network(**arg_dict, system=system)
+    try:
+        return network(**arg_dict, system=system)
+    except TypeError:
+        del arg_dict["gutzwiller"]
+        return network(**arg_dict, system=system)
 
 
 def load(file_name: str, system, prefix: str = None):

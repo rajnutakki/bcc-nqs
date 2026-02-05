@@ -313,7 +313,11 @@ def from_dict(arg_dict: dict):
     except KeyError:
         system = systems[str(arg_dict["Name"])]
         del arg_dict["Name"]
-    return system(**arg_dict)
+    try:
+        return system(**arg_dict)
+    except TypeError:
+        del arg_dict["simple_cubic"]
+        return system(**arg_dict)
 
 
 def load(file_name: str, prefix: str = None):
